@@ -212,4 +212,55 @@
     \end{solution}
 \end{problem}
 
-% --- 第 9 题 ---
+% --- 第 10 题 (对应第一张图片：滤波器与算法综合) ---
+\begin{problem}[滤波器结构与算法特性]
+    下面说法正确的是（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item IIR 滤波器级联结构比直接型结构对系数变换的敏感度小，受有限字长的影响低
+        \item 在线性相位 FIR 滤波器结构中，利用系数的对称性，相同系数共用乘法器，可以节省近一半的乘法器
+        \item 白噪声是相关性最差的随机序列，谐波是相关性最强的随机序列
+        \item 自适应滤波算法中，RLS 算法与 LMS 算法相比，RLS 算法的收敛速率快，而且失调量小，但计算复杂度高
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(ABCD)}
+        
+        \textbf{分析：} 
+        \begin{itemize}
+            \item \textbf{(A) 正确}：IIR 滤波器的直接型结构对系数量化误差非常敏感，极点位置容易发生较大偏移甚至导致系统不稳定。级联结构（将系统分解为二阶节的级联）能显著降低这种灵敏度，减少有限字长效应的影响。
+            \item \textbf{(B) 正确}：线性相位 FIR 滤波器满足 $h(n) = \pm h(N-1-n)$。利用这种对称性，可以将通过加法器预先合并对称的输入样本，然后再与系数相乘，从而将所需的乘法器数量减少约一半（$N/2$ 或 $(N+1)/2$）。
+            \item \textbf{(C) 正确}：白噪声的自相关函数是冲激函数 $\delta(m)$，表示仅在 $m=0$ 时相关，其他时刻完全不相关（相关性最差）。而谐波信号（如正弦波）是确定性信号，其自相关函数也是周期的，具有很强的长时相关性。
+            \item \textbf{(D) 正确}：RLS（递归最小二乘）算法利用了所有过去的数据信息，收敛速度极快且稳态误差（失调量）小，但涉及矩阵运算，计算复杂度为 $O(N^2)$；相比之下 LMS 算法计算简单 $O(N)$ 但收敛慢。
+        \end{itemize}
+    \end{solution}
+\end{problem}
+
+% --- 第 11 题 (对应第二张图片：离散系统的性质) ---
+\begin{problem}[离散系统的性质]
+    关于离散系统，下面叙述正确的是：（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item 系统 $y(n) = 2x(n) + 1$ 是线性系统
+        \item $y(n) = x(2n)$ 是时不变系统
+        \item 系统 $y(n) = [x(n+1) + x(n) + x(n-1)]/3$ 是因果系统
+        \item 如果 FIR 系统的单位脉冲响应 $h(n)$ 是实数，且是偶对称的，即满足：$h(n)=h(N-n-1)$，则该系统一定具有线性相位特性
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(D)}
+        
+        \textbf{分析：} 
+        \begin{itemize}
+            \item \textbf{(A) 错误}：线性系统必须满足叠加原理（均匀性和叠加性）。该方程中含有常数项 $+1$，若输入为 0，输出不为 0，显然是非线性的（不满足零输入零输出特性）。
+            \item \textbf{(B) 错误}：该系统是抽取系统。
+            \begin{itemize}
+                \item 原系统输入 $x(n)$ 输出 $y(n) = x(2n)$。
+                \item 延迟后的输入 $x'(n) = x(n-k)$，其输出为 $y'(n) = x'(2n) = x(2n-k)$。
+                \item 延迟后的输出 $y(n-k) = x(2(n-k)) = x(2n-2k)$。
+                \item 显然 $y'(n) \neq y(n-k)$，故为时变系统。
+            \end{itemize}
+            \item \textbf{(C) 错误}：因果系统的输出仅取决于当前和过去的输入。该式中 $y(n)$ 依赖于 $x(n+1)$（未来的输入），因此是非因果系统。
+            \item \textbf{(D) 正确}：这是 FIR 滤波器具有线性相位的充分条件。当 $h(n)$ 满足偶对称中心为 $(N-1)/2$ 时，其频响相位为 $\theta(w) = -w(N-1)/2$，即严格线性相位。
+        \end{itemize}
+    \end{solution}
+\end{problem}
+
