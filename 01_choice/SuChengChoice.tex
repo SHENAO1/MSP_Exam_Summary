@@ -264,3 +264,73 @@
     \end{solution}
 \end{problem}
 
+
+
+% --- 第 12 题 (对应MATLAB函数图片) ---
+\begin{problem}[MATLAB信号处理函数的使用]
+    关于 MATLAB 函数的使用，下面叙述正确的是：（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item 计算系统的频率特性可以使用函数 \texttt{freqz(b, a)}，其中 $b$ 是系统函数 $H(z)$ 分母多项式的系数，$a$ 是系统函数分子多项式的系数
+        \item 计算信号的频谱可以使用函数 \texttt{y=fft(x)}，如果 $x$ 是 $N$ 点的信号，则 $y$ 是 $x$ 频谱在 $0 \sim 2\pi$ 的 $N$ 等分
+        \item 产生正态分布的白噪声使用函数 \texttt{rand}
+        \item 设计 FIR 滤波器可以使用函数 \texttt{h = fir1(N, w)}，表示使用默认的窗函数设计一个 $N$ 阶，截止频率为 $w$ 的数字低通滤波器，其中 $w$ 是对 $\pi$ 归一化的数字频率，$h$ 是滤波器的单位脉冲响应，有 $N+1$ 个系数
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(BD)}
+        
+        \textbf{分析：} 
+        \begin{itemize}
+            \item \textbf{(A) 错误}：在 MATLAB 的 \texttt{freqz(b, a)} 函数中，按照惯例，$b$ 对应\textbf{分子}多项式系数（Numerator），$a$ 对应\textbf{分母}多项式系数（Denominator）。题目描述将二者颠倒了。
+            \item \textbf{(B) 正确}：\texttt{fft} 计算离散傅里叶变换（DFT）。$N$ 点 DFT 的结果确实对应频域 $[0, 2\pi)$ 区间上的 $N$ 个均匀采样点。
+            \item \textbf{(C) 错误}：\texttt{rand} 函数产生的是\textbf{均匀分布}（Uniform）的随机数；产生正态分布（高斯分布）应使用 \texttt{randn} 函数。
+            \item \textbf{(D) 正确}：\texttt{fir1} 用于设计窗函数法 FIR 滤波器。参数 $N$ 为滤波器阶数，输出的冲激响应 $h$ 长度为 $N+1$。默认情况下使用汉明窗（Hamming）且设计低通滤波器。
+        \end{itemize}
+    \end{solution}
+\end{problem}
+
+% --- 第 13 题 (对应FIR/IIR对比图片) ---
+\begin{problem}[FIR与IIR滤波器的对比]
+    FIR 滤波器与 IIR 滤波器相比较，下列说法中正确的是：（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item IIR 滤波器无法得到严格的线性相位
+        \item FIR 滤波器一定是线性相位的
+        \item FIR 滤波器的相位可以做到严格线性
+        \item 相同性能下 FIR 滤波器的阶次高
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(ACD)}
+        
+        \textbf{分析：} 
+        \begin{itemize}
+            \item \textbf{(A) 正确}：因果稳定的 IIR 滤波器由于存在极点（且极点不在原点），其相位特性是非线性的。要实现 IIR 的线性相位通常需要非因果处理（如双向滤波）。
+            \item \textbf{(B) 错误}：FIR 滤波器只有在单位脉冲响应满足对称性（$h(n) = \pm h(N-1-n)$）时才具有线性相位，并非“一定”是线性相位的。
+            \item \textbf{(C) 正确}：这是 FIR 最大的优点之一，可以通过设计系数对称来严格保证线性相位，避免相位失真。
+            \item \textbf{(D) 正确}：IIR 利用了反馈（极点），能用较少的阶数获得陡峭的过渡带。FIR 仅利用零点，为了达到同样的幅频特性指标（如通带波纹、阻带衰减、过渡带宽度），通常需要比 IIR 高得多的阶数（通常高 5-10 倍）。
+        \end{itemize}
+    \end{solution}
+\end{problem}
+
+% --- 第 12 题 (对应LMS算法图片) ---
+\begin{problem}[LMS算法的特性]
+    自适应滤波器采用 LMS 算法迭代，正确的说法是（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item 达到稳态后，均方误差恒定在最小值
+        \item 迭代过程中，输出误差的平方单调向碗底运动
+        \item 信号越强收敛越慢
+        \item 失调量与步长成正比
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(D)}
+        
+        \textbf{分析：} 
+        \begin{itemize}
+            \item \textbf{(A) 错误}：LMS 算法是随机梯度下降，权值向量在最优解附近随机起伏（布朗运动），因此均方误差（MSE）不会“恒定”在最小值，而是存在过剩均方误差（Excess MSE）。
+            \item \textbf{(B) 错误}：由于使用瞬时平方误差 $\hat{\xi}(n)=e^2(n)$ 代替均方误差 $E[e^2(n)]$ 作为梯度的估计，梯度估计含有噪声，导致权值更新轨迹是曲折的，并不是单调下降的。
+            \item \textbf{(C) 错误}：LMS 算法的收敛时间常数 $\tau \approx \frac{1}{4\mu \lambda}$（其中 $\lambda$ 为输入相关矩阵的特征值，代表信号功率）。在步长 $\mu$ 固定的稳定范围内，信号越强（$\lambda$ 越大），时间常数越小，收敛反而\textbf{越快}。
+            \item \textbf{(D) 正确}：稳态失调量（Misadjustment） $M \approx \frac{\mu}{2} \text{tr}(\mathbf{R})$ $\left \{  M = \underbrace{\mu}_{\text{步长}} \underbrace{N}_{\text{阶数}}  \underbrace{P}_{\text{输入功率}}  \right \}$。失调量直接正比于步长 $\mu$。步长越大，收敛越快，但稳态误差（失调量）也越大。
+        \end{itemize}
+    \end{solution}
+\end{problem}
