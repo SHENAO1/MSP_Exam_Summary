@@ -1,0 +1,17 @@
+# 编译生成的中间文件
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+
+# 最终生成的 PDF (通常也不建议放入 git，除非作为发布存档)
+*.pdf
+
+# 编辑器临时文件 (VS Code 等)
+.vscode/
+*.DS_Store

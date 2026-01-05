@@ -1,0 +1,80 @@
+% SuChengChoice.tex
+% 子文件：选择题部分
+% 请确保主文件已加载 msp-exam 文档类
+
+\section{基础概念选择题}
+
+% --- 第 1 题 ---
+\begin{problem}[功率谱密度的性质]
+    下列哪些函数是实随机信号的功率谱密度的正确表达式（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=1em]
+        \item $\displaystyle \frac{w^2}{w^6 + 3w^2 + 3}$
+        \item $\displaystyle \frac{w^2}{jw^6 + w^2 + 1}$
+        \item $\displaystyle \frac{w^2}{w^3 - 1} - \delta(w)$
+        \item $\displaystyle e^{-(w-1)^2}$
+    \end{enumerate}
+    
+    \begin{solution}
+        \textbf{正确答案：(A)}
+        
+        \textbf{分析：} 实随机信号的功率谱密度 $S_x(w)$ 必须满足以下三个性质：
+        \begin{enumerate}
+            \item \textbf{实值性}：功率谱必须是实函数。选项 (B) 分母含有虚数单位 $j$，故排除。
+            \item \textbf{非负性}：$S_x(w) \ge 0$。选项 (C) 中 $\delta(w)$ 前为负号，且分母 $w^3-1$ 在 $w<1$ 时可能为负，故排除。
+            \item \textbf{偶对称性}：$S_x(w) = S_x(-w)$。
+            \begin{itemize}
+                \item 选项 (C) 分母含 $w^3$ 为奇函数项，不满足偶对称。
+                \item 选项 (D) 为中心在 $w=1$ 的高斯函数，不关于原点偶对称，故排除。
+            \end{itemize}
+        \end{enumerate}
+        检查选项 (A)：
+        $$ S(w) = \frac{w^2}{w^6 + 3w^2 + 3} $$
+        分子 $w^2$ 是偶函数且非负；分母 $w^6 + 3w^2 + 3$ 是偶函数且恒大于0（各项均为非负项且常数项为3）。因此整个式子是实值、非负且偶对称的。
+    \end{solution}
+\end{problem}
+
+% --- 第 2 题 ---
+\begin{problem}[白噪声的定义]
+    下面属于白噪声的信号是（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item 带宽大于系统的带宽，并且在系统的带宽内该信号的频谱近似均匀分布
+        \item 功率谱在整个频域内是均匀分布的信号
+        \item 序列 $x(n)$ 的变量是两两不相关的
+        \item 符合正态分布的随机信号
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(B)}
+        
+        \textbf{分析：} 
+        \begin{itemize}
+            \item \textbf{(B)} 是白噪声严格的频域定义：功率谱密度在整个频率轴 $(-\infty, +\infty)$ 上为常数（均匀分布）。
+            \item (A) 描述的是工程上实用的“带限白噪声”或针对特定系统的“准白噪声”，不是严格的定义。
+            \item (C) 描述的是离散白噪声的时域特性（自相关函数为冲激函数），虽然正确，但通常白噪声的首要定义基于“白”（即全频谱能量均等）。
+            \item (D) 描述的是高斯噪声（幅度分布特性），高斯噪声不一定是白噪声（频谱特性）。
+        \end{itemize}
+    \end{solution}
+\end{problem}
+
+% --- 第 3 题 ---
+\begin{problem}[FIR与IIR滤波器对比]
+    FIR 滤波器与 IIR 滤波器相比较，下列说法中正确的是（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item FIR 相位可以做到严格线性
+        \item FIR 主要是非递归结构
+        \item 相同性能下 FIR 阶次高
+        \item 以上说法都对
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(D)}
+        
+        \textbf{分析：} 
+        \begin{itemize}
+            \item \textbf{(A) 正确}：FIR 滤波器只要满足系数对称或反对称（$h[n] = \pm h[N-1-n]$），即可具有严格的线性相位特性。这是 FIR 相比 IIR 最大的优势。
+            \item \textbf{(B) 正确}：FIR（有限长单位冲激响应）通常采用非递归结构（如横截型结构），系统函数只有零点，没有极点（极点在原点），保证了绝对稳定性。
+            \item \textbf{(C) 正确}：为了达到与 IIR 相同的幅频特性（如下降陡度），FIR 通常需要比 IIR 高得多的阶数（Tap数），因为 IIR 利用反馈引入了极点，能更高效地逼近理想特性。
+        \end{itemize}
+        综上所述，(A)、(B)、(C) 均正确。
+    \end{solution}
+\end{problem}
