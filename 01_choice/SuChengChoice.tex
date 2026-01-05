@@ -143,3 +143,73 @@
         \end{itemize}
     \end{solution}
 \end{problem}
+
+% --- 第 7 题 ---
+\begin{problem}[因果稳定系统与零极点]
+    一个因果稳定的可逆系统，其系统函数 $H(z)$ 的零、极点分布情况：（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item 零点在 $z$ 平面的单位圆的内部，极点在 $z$ 平面的单位圆的外部
+        \item 零、极点全部在 $z$ 平面的单位圆的内部
+        \item 零点在 $z$ 平面的单位圆的外部，极点在 $z$ 平面的单位圆的内部
+        \item 零、极点全部在 $z$ 平面的单位圆的外部
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(B)}
+        
+        \textbf{分析：} 
+        \begin{itemize}
+            \item \textbf{因果稳定性}：系统因果且稳定，要求其系统函数 $H(z)$ 的所有极点必须位于 $z$ 平面单位圆的\textbf{内部}。
+            \item \textbf{可逆性（最小相位）}：题目中的“可逆系统”通常指逆系统也是因果稳定的（即最小相位系统）。逆系统的系统函数为 $H^{-1}(z) = 1/H(z)$，其极点即为原系统 $H(z)$ 的零点。为了保证逆系统也是因果稳定的，原系统的零点也必须位于单位圆的\textbf{内部}。
+            \item 综上所述，该系统的零点和极点都必须全部在单位圆内部。
+        \end{itemize}
+    \end{solution}
+\end{problem}
+
+% --- 第 8 题 ---
+\begin{problem}[随机信号通过线性系统]
+    对于随机信号通过线性系统，下面正确的概念是（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item 输入输出互相关序列就是系统的单位脉冲响应序列
+        \item 输出自功率谱等于输入自功率谱乘上系统的能量谱
+        \item 输入输出的互功率谱等于输入的自功率谱与系统频率响应的乘积
+        \item 输入输出互相关序列等于输入自相关序列乘上系统的单位脉冲响应序列
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(BC)}
+        
+        \textbf{分析：} 
+        \begin{itemize}
+            \item \textbf{(A) 错误}：输入输出互相关函数 $R_{xy}(m) = R_{xx}(m) * h(m)$。只有当输入是白噪声（$R_{xx}(m)=\delta(m)$）时，互相关函数才等于系统的单位脉冲响应 $h(m)$。
+            \item \textbf{(B) 正确}：对于线性时不变系统，输出功率谱密度 $S_{yy}(w)$ 与输入功率谱密度 $S_{xx}(w)$ 的关系为 $S_{yy}(w) = S_{xx}(w) |H(w)|^2$。其中 $|H(w)|^2$ 常被称为系统的能量谱（或功率传输函数）。
+            \item \textbf{(C) 正确}：输入输出互功率谱 $S_{xy}(w)$ 与输入自功率谱的关系为 $S_{xy}(w) = S_{xx}(w) H(w)$（注意：此处假设互相关定义为 $R_{xy}(\tau) = E[x(t)y(t+\tau)]$，若定义不同可能涉及共轭）。
+            \item \textbf{(D) 错误}：时域中，输入输出互相关序列是输入自相关序列与系统单位脉冲响应的\textbf{卷积}，而不是乘积。
+        \end{itemize}
+    \end{solution}
+\end{problem}
+
+% --- 第 9 题 ---
+\begin{problem}[信号的频域分辨率]
+    对于信号的频域分辨率，下面正确的概念是（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item 采用新的信号处理算法可以提高信号的频域分辨率
+        \item 增大信号时域的实际长度可以提高信号的频域分辨率
+        \item 信号的频域分辨率与时域截断时所采用的窗函数有关
+        \item 信号的频域分辨率与作 DFT 时补零的长度有关
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(ABC)}
+        
+        \textbf{分析：} 
+        \begin{itemize}
+            \item \textbf{(A) 正确}：传统的非参数谱估计（如周期图法）分辨率受限于数据长度（瑞利限），但现代参数谱估计算法（如 AR 模型、MUSIC、ESPRIT 等）可以突破这一限制，显著提高分辨率。
+            \item \textbf{(B) 正确}：物理分辨率主要取决于信号的观测时长 $T$（或采样点数 $N$），分辨率 $\Delta f \approx 1/T$。增加数据长度是提高物理分辨率最直接的方法。
+            \item \textbf{(C) 正确}：加窗会使谱峰变宽（主瓣加宽），导致分辨率下降。不同窗函数的主瓣宽度不同，因此分辨率与窗函数有关（如矩形窗主瓣最窄，分辨率最高；黑曼窗主瓣宽，分辨率低）。
+            \item \textbf{(D) 错误}：补零（Zero-padding）只是对频谱进行插值，增加了频谱采样的密度（栅栏效应减小），使谱线看起来更平滑，但并不能区分两个原本无法分辨的紧邻频率分量，即不能提高物理分辨率。
+        \end{itemize}
+    \end{solution}
+\end{problem}
+
+% --- 第 9 题 ---
