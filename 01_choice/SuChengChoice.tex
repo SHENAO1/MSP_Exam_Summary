@@ -1,6 +1,6 @@
 % SuChengChoice.tex
 % 子文件：选择题部分
-% 请确保主文件已加载 msp-exam 文档类
+% 请确保主文件已加载 msp-exam 文档类 (或包含 ctex, amsmath, enumitem 等宏包)
 
 \section{基础概念选择题}
 
@@ -16,7 +16,7 @@
     
     \begin{solution}
         \textbf{正确答案：(A)}
-        
+       
         \textbf{分析：} 实随机信号的功率谱密度 $S_x(w)$ 必须满足以下三个性质：
         \begin{enumerate}
             \item \textbf{实值性}：功率谱必须是实函数。选项 (B) 分母含有虚数单位 $j$，故排除。
@@ -44,14 +44,14 @@
     \end{enumerate}
 
     \begin{solution}
-        \textbf{正确答案：(B)}
+        \textbf{正确答案：(ABC)}
         
         \textbf{分析：} 
         \begin{itemize}
-            \item \textbf{(B)} 是白噪声严格的频域定义：功率谱密度在整个频率轴 $(-\infty, +\infty)$ 上为常数（均匀分布）。
-            \item (A) 描述的是工程上实用的“带限白噪声”或针对特定系统的“准白噪声”，不是严格的定义。
-            \item (C) 描述的是离散白噪声的时域特性（自相关函数为冲激函数），虽然正确，但通常白噪声的首要定义基于“白”（即全频谱能量均等）。
-            \item (D) 描述的是高斯噪声（幅度分布特性），高斯噪声不一定是白噪声（频谱特性）。
+            \item (A) 描述的是工程上实用的“带限白噪声”或针对特定系统的“准白噪声”。
+            \item (B) 是白噪声的严格定义，理想白噪声在整个频域内功率谱密度均匀分布。
+            \item (C) 描述的是离散白噪声的时域特性（自相关函数为冲激函数，即样本间不相关）。
+            \item (D) 描述的是高斯噪声（幅度分布特性），高斯噪声不一定是白噪声（频谱特性），反之亦然。
         \end{itemize}
     \end{solution}
 \end{problem}
@@ -63,11 +63,11 @@
         \item FIR 相位可以做到严格线性
         \item FIR 主要是非递归结构
         \item 相同性能下 FIR 阶次高
-        \item 以上说法都对
+        \item 以上说法都不对
     \end{enumerate}
 
     \begin{solution}
-        \textbf{正确答案：(D)}
+        \textbf{正确答案：(ABC)}
         
         \textbf{分析：} 
         \begin{itemize}
@@ -75,6 +75,71 @@
             \item \textbf{(B) 正确}：FIR（有限长单位冲激响应）通常采用非递归结构（如横截型结构），系统函数只有零点，没有极点（极点在原点），保证了绝对稳定性。
             \item \textbf{(C) 正确}：为了达到与 IIR 相同的幅频特性（如下降陡度），FIR 通常需要比 IIR 高得多的阶数（Tap数），因为 IIR 利用反馈引入了极点，能更高效地逼近理想特性。
         \end{itemize}
-        综上所述，(A)、(B)、(C) 均正确。
+    \end{solution}
+\end{problem}
+
+% --- 第 4 题 ---
+\begin{problem}[时域与频域的关系]
+    下述对时域与频域之间关系描述正确的是（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item 信号的相关性越强，它的功率谱就越窄
+        \item 信号的功率谱越宽，说明它的相关性越弱
+        \item 信号在时域分布越宽，则在频域分布就越窄
+        \item 信号在时间上压缩 $N$ 倍，则其频谱就在频域打展 $N$ 倍
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(ABCD)}
+        
+        \textbf{分析：} 
+        \begin{itemize}
+            \item \textbf{(A)(B) 正确}：相关性与功率谱（或频谱）是一对傅里叶变换关系。时域变化越缓慢（相关性越强），频域分量越集中于低频（功率谱越窄）；反之，变化越剧烈（不相关/白噪声），功率谱越宽。
+            \item \textbf{(C) 正确}：根据不确定性原理（时宽频宽积为常数），时域的扩展对应频域的压缩，时域的宽分布对应频域的窄分布。
+            \item \textbf{(D) 正确}：根据傅里叶变换的尺度变换性质（Scaling Property），$x(at) \leftrightarrow \frac{1}{|a|}X(\frac{w}{a})$。若 $a=N$（压缩），则频域变量变为 $w/N$，即频域宽度扩展 $N$ 倍。
+        \end{itemize}
+    \end{solution}
+\end{problem}
+
+% --- 第 5 题 ---
+\begin{problem}[周期图法谱估计的性质]
+    周期图法谱估计的方差：（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item 大，但随着数据长度增大而减小
+        \item 小，但随着数据长度增大而增大
+        \item 大，且不随着数据长度增大而减小
+        \item 小，且随着数据长度增大而减小
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(C)}
+        
+        \textbf{分析：} 
+        周期图法（Periodogram）是功率谱密度的渐近无偏估计，但它是非一致（inconsistent）估计。
+        \begin{itemize}
+            \item 随着数据长度 $N \to \infty$，其方差并不趋于 0。
+            \item 事实上，周期图谱估计的方差与真实功率谱值的平方成正比，即 $\text{Var}[\hat{P}(w)] \approx P^2(w)$。
+            \item 无论 $N$ 多大，方差都保持较大水平，因此需要采用平均周期图法（Bartlett法）或平滑周期图法（Welch法）来减小方差。
+        \end{itemize}
+    \end{solution}
+\end{problem}
+
+% --- 第 6 题 ---
+\begin{problem}[自适应滤波器的性能]
+    自适应滤波器的性能最终取决于（ \quad ）
+    \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
+        \item 采用横向结构还是采用格型结构
+        \item 其数字滤波器是递归的还是非递归的
+        \item 所采用的自适应算法
+        \item 输入序列与参考序列之间的相关程度
+    \end{enumerate}
+
+    \begin{solution}
+        \textbf{正确答案：(D)}
+        
+        \textbf{分析：} 
+        \begin{itemize}
+            \item 选项 (A)、(B)、(C) 主要影响滤波器的收敛速度、计算复杂度以及数值稳定性。例如，RLS 算法比 LMS 算法收敛快，IIR 结构比 FIR 结构更节省阶数。
+            \item 选项 (D) 决定了滤波器的最终效果（最小均方误差的下限）。自适应滤波的本质是从输入信号中提取出与参考信号相关的部分。如果输入信号与参考信号完全不相关，无论用什么结构或算法，滤波器都无法有效工作。维纳解（Wiener Solution）表明最优权值取决于互相关向量 $\mathbf{p}$ 和自相关矩阵 $\mathbf{R}$。
+        \end{itemize}
     \end{solution}
 \end{problem}
