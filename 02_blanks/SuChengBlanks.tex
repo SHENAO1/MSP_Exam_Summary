@@ -1,0 +1,174 @@
+% /02_blanks/SuChengBlanks.tex
+% 这是一个被 \input 的文件，不需要 document 环境
+
+% ==========================================
+% 1. 定义题目数据 (Data Groups)
+% ==========================================
+
+% --- 第 1 组 (1-10题) ---
+\newcommand{\GroupOne}{
+    \item 自相关函数的估计有两种方法，无偏自相关函数估计和有偏自相关函数估计，其中\blank{有偏自相关函数}的偏移量为0。两种方法中\blank{有偏}方差较小，实际中多采用\blank{有偏}方法
+    \item 某LTI系统的单位冲激响应$ h(n)= \{1,2,2,1 \} $，输入信号是均值$ m_x=1 $的平稳随机信号，则系统输出的均值为\blank{6}\note{直接把冲激响应每个值加起来}
+    \item 时间序列信号模型分为三种，功率谱有尖峰而没有深谷的信号一般选择\blank{AR}模型，功率谱有深谷而没有尖峰的信号一般选择\blank{MA}模型，\blank{ARMA}模型适合尖峰和深谷都有的情况
+    \item 随机信号有四种形式。时间和幅度均取连续的随机信号是\blank{连续随机信号}，时间离散，幅度连续的是\blank{离散随机信号}，幅度离散，时间连续的是\blank{幅度离散随机信号}，幅度和时间都离散的是\blank{离散数字信号}
+    \item （重点）维纳滤波器的准则是\blank{最小均方误差准则}，最大的缺点是\blank{只能输入平稳随机信号}
+    \item 自然界中绝大部分随机信号都可以认为是\blank{宽平稳}的
+    \item 平稳随机序列的一维概率密度函数与时间无关，因此均值、方差和均方值均是与时间无关的\blank{常数}
+    \item \blank{遍历性}反映的是从随机信号的一次观测记录中是否可以估计其均值、相关函数等统计特性
+    \item 如果平稳随机序列的集合平均值和集合自相关函数依概率趋于平稳随机序列样本函数的时间平均值与时间自相关函数，则称平稳随机序列具有\blank{各态遍历性}
+    \item （重点）一般只要\blank{信号带宽大于系统带宽}，并且在系统的带宽内信号的\blank{频谱基本恒定}，便可把该信号认为是\blank{白噪声}
+}
+
+% --- 第 2 组 (11-20题) ---
+\newcommand{\GroupTwo}{
+    \item 白噪声序列变量不同时刻之间是\blank{两两不相关}的，服从\blank{正态分布}的白噪声序列，称为\blank{高斯白噪声序列}
+    
+    \item \blank{白噪声序列}的相关性最差，\blank{谐波}序列的相关性最强
+    
+    % 【修正】下面这行把 $ 移到了 \blank 内部
+    \item 如果平稳随机信号的功率谱$ P_{xx}(\Omega)=0,|\Omega>\Omega_c| $，则称该随机信号为\blank{低通带限信号}，$ \Omega_c $表示功率谱的最高角频率，那么采样频率$ f_s $必须满足\blank{$ f_s \geq 2 f_c $}
+    
+    \item 估计准则：\blank{偏移性、方差、一致性}。通常对于一种估计方法的选定，往往无法使上述三种性能评价一致，此时只能对他们折中考虑，尽量满足无偏性和一致性。
+    
+    \item 实际中一般采用的是\blank{有偏自相关函数}估计法
+    
+    % 【修正】下面这行把 $ 移到了 \blank 内部
+    \item 沃尔德分解定理：一个实平稳随机序列$ x(n) $可以分解\blank{$ x(n) =  u(n) + v(n) $}
+    
+    \item AR模型较其他两种模型计算简单，只要\blank{阶数调高些}，近似性较好
+    
+    \item 维纳滤波器的求解，要知道随机信号的统计分布规律（\blank{相关函数}或\blank{功率谱密度}）
+    
+    \item \blank{匹配滤波器}，\blank{维纳滤波器}是两种常用的最优滤波器
+    
+    \item 当加性噪声$ n(t) $为白噪声时，滤波器的输出达到最大信噪比时，滤波器的幅频特性与信号的幅频特性相等，或者说二者匹配。故将白噪声情况下信噪比最大的线性滤波器称为\blank{匹配滤波器}
+}
+
+% --- 第 3 组 (21-30题) ---
+\newcommand{\GroupThree}{
+    \item 匹配滤波器对\blank{波形相同而幅度不同}的时延信号具有适应性。
+    \item 均方误差达到最小值的充分必要条件是\blank{输入信号与误差信号正交}，这就是正交性原理，它的重要意义在于提供了一个数学方法，用以判断滤波器是否工作于\blank{最佳状态}
+    \item 当滤波器处于最佳工作状态时，估计值（滤波器输出）加上估计偏差（误差信号）等于\blank{期望信号}
+    \item 维纳霍夫方程
+    % 【修正】
+    \item $ x(n) =  s(n) + v(n) $，$ v(n) $是噪声，当\blank{$ v(n)=0 $}，期望信号为\blank{$ s(n+N)=0,N \geq 1 $}，此种情况称为\blank{纯预测}
+    \item 维纳滤波器采用最小均方误差准则，最小均分误差的大小与维纳滤波器的系统类型有关，一般非因果系统情况\blank{<}因果系统情况
+    \item 经典谱估计最大的缺点是\blank{谱分辨率低}，它有很多改进方法，但无论是哪一种改进方法，都是以减少\blank{分辨率}为代价来换取\blank{估计方差}的减少
+    \item 自适应滤波器的最终性能取决于\blank{输入序列}与\blank{参考序列}的相关性质
+    \item （重要）正交性原理：均方误差达到最小值的充要条件是\blank{输入信号}与\blank{误差信号}正交
+    % 【修正】
+    \item 为实现自适应滤波器作用，\blank{输入信号}\blank{$ x(n) $}和\blank{期望信号}\blank{$ d(n) $}\blank{应该相关}
+}
+
+
+% --- 第 4 组 (31-40题) ---
+\newcommand{\GroupFour}{
+    \item 给定一个二阶自适应横向滤波器，它的均方误差性能函数曲面的横截面是\blank{椭圆}，椭圆的主轴长度与输入信号的自相关矩阵的\blank{特征值}有关，该值越小，相应的主轴越长
+    
+    \item 经典谱估计最大的缺点是\blank{估计的功率谱很难与实际功率谱相匹配}
+    
+    % 【修正】分数的数学模式修正
+    \item 某连续信号以 $ 4\text{kHz} $ 的采样频率进行采样，对采样信号作 $ 1024 $ 点的 DFT 得到离散频谱 $ X(k) $，则离散频谱 $ X(k) $ 中谱线间隔为 \blank{$\frac{4000}{1024}$}$ \text{Hz} $。$ X(k) $ 中 $ k=256 $ 点对应原连续信号的连续频谱\blank{1000}$ \text{Hz} $
+    
+    % 【修正】公式修正
+    \item 某匹配滤波器对信号$ x(n) =  u(n) + v(n) $进行匹配滤波，其中$ v(n) $是加性白噪声信号，则匹配滤波器的单位脉冲响应为\blank{$ ks(n-m) $}
+    
+    % 【修正】复杂的系统函数修正
+    \item 某系统的差分方程为$ y(k)=x(k)+0.8x(k-1)-0.9y(k-1)-0.2y(k-2) $，则该系统的系统函数为\blank{$ H(z)=\frac{Y(z)}{X(z)}=\frac{1+0.8z^{-1}}{1+0.9z^{-1}+0.2z^{-2}} $}
+    
+    % 【修正】功率谱公式修正
+    \item 设平稳随机信号$ x(n) $是由方差为$ \sigma^2 $、均值为0的白噪声激励系统$ H(z) = \frac{z + 0.2}{z + 0.5} $产生的，则随机信号$ x(n) $的功率谱为\blank{$ P_x(z) = \sigma^2 \frac{(z + 0.2)(z^{-1} + 0.2)}{(z + 0.5)(z^{-1} + 0.5)} $}\note{$ P_x(z) = \sigma^2 \cdot H(z) \cdot H(z^{-1}) $}
+    
+    \item 特征分解法进行谱分析时，将自相关矩阵的特征向量分类，分别张成\blank{信号}子空间和\blank{噪声}子空间，而且这两个子空间相互\blank{正交}
+    
+    \item 贝叶斯估计包括\blank{最小均方估计}、\blank{最大后验估计}、\blank{条件中位数估计}
+    
+    \item 自适应滤波器的应用有\blank{辨识}、\blank{预测}、\blank{干扰消除}、\blank{逆模型}
+    
+    \item 一种更理想的滤波器应该具有\blank{学习能力}，输入信号通过滤波器处理后对期望响应进行估计，\blank{逐渐更新滤波器参数}，使滤波器的输出对期望响应的误差逐渐接近最小，这样的滤波器就是\blank{自适应滤波器}
+}
+
+% --- 第 5 组 (41-42题) ---
+\newcommand{\GroupFive}{
+    \item 由于自适应滤波器在学习过程中有期望响应的存在，因此它是一种具有\blank{监督学习}功能的过程
+    \item 均方误差$ E[e_i^2] $在自适应信号处理中是一个重要的函数，常称之为\blank{性能函数（性能曲面）}
+}
+
+% ==========================================
+% 2. 页面输出逻辑 (Execution)
+% ==========================================
+
+% --- 第一组 ---
+\section*{第一部分（1-10题）}
+\showanswersfalse
+\begin{enumerate}[start=1]
+    \GroupOne
+\end{enumerate}
+
+\clearpage
+\section*{第一部分答案}
+\showanswerstrue
+\begin{enumerate}[start=1]
+    \GroupOne
+\end{enumerate}
+\clearpage
+
+% --- 第二组 ---
+\section*{第二部分（11-20题）}
+\showanswersfalse
+\begin{enumerate}[start=11]
+    \GroupTwo
+\end{enumerate}
+
+\clearpage
+\section*{第二部分答案}
+\showanswerstrue
+\begin{enumerate}[start=11]
+    \GroupTwo
+\end{enumerate}
+\clearpage
+
+% --- 第三组 ---
+\section*{第三部分（21-30题）}
+\showanswersfalse
+\begin{enumerate}[start=21]
+    \GroupThree
+\end{enumerate}
+
+\clearpage
+\section*{第三部分答案}
+\showanswerstrue
+\begin{enumerate}[start=21]
+    \GroupThree
+\end{enumerate}
+\clearpage
+
+% --- 第四组 ---
+\section*{第四部分（31-40题）}
+\showanswersfalse
+\begin{enumerate}[start=31]
+    \GroupFour
+\end{enumerate}
+
+\clearpage
+\section*{第四部分答案}
+\showanswerstrue
+\begin{enumerate}[start=31]
+    \GroupFour
+\end{enumerate}
+\clearpage
+
+% --- 第五组 ---
+\section*{第五部分（41-42题）}
+\showanswersfalse
+\begin{enumerate}[start=41]
+    \GroupFive
+\end{enumerate}
+
+\clearpage
+\section*{第五部分答案}
+\showanswerstrue
+\begin{enumerate}[start=41]
+    \GroupFive
+\end{enumerate}
+\clearpage
