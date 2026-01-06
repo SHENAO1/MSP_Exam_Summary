@@ -1,5 +1,5 @@
 % 03_short_answer/SuChengShortAnswer.tex
-% 基于 MSP问答题.md 1:1 转换 (已修复 aligned 报错)
+% 基于 MSP问答题.md 1:1 转换 
 
 \section{简答题与分析}
 
@@ -50,7 +50,8 @@
 \end{problem}
 
 % --- 五、自适应滤波器LMS算法 (包含推导) ---
-\begin{problem}[自适应滤波器采用LMS算法]
+% 【注意】：这里改为 longproblem，允许跨页
+\begin{longproblem}[自适应滤波器采用LMS算法]
     \begin{enumerate}
         \item \textbf{权系数的更新公式：}
         \[ W_{j+1} = W_{j} + 2\mu e_{j}X_{j} \]
@@ -69,7 +70,7 @@
             \[ \Delta w = - \mu \nabla J(n) \]
             这里的 $\mu$ 是步长因子，$\nabla J(n)$ 是代价函数对权向量 $w$ 的导数。
             
-            \textbf{第三步：计算梯度}\\
+\textbf{第三步：计算梯度}\\
             根据链式法则：
             \[ \nabla J(n) = \frac{\partial e^2(n)}{\partial w} = 2e(n) \frac{\partial e(n)}{\partial w} \]
             代入 $e(n) = d(n) - w^T(n)x(n)$ 对 $w$ 求偏导：
@@ -79,9 +80,13 @@
             将结果合在一起，得到瞬时梯度：
             \[ \nabla J(n) = 2e(n) \cdot [-x(n)] = -2e(n)x(n) \]
             
+        \end{derivation} % <--- 【1. 在这里结束第一部分】
+
+        % 【2. 这里会自动分页，或者你可以加 \newpage 强行分页】
+        
+        \begin{derivation}[推导过程（续）] % <--- 【3. 开启第二部分，标题加个(续)】
             \textbf{第四步：最终公式}\\
             将计算出的梯度代入第二步的更新逻辑中：
-            % 【修正点】：增加了外层的 \[ ... \] 
             \[
             \begin{aligned}  
             w(n+1) &= w(n) - \mu \nabla J(n) \\
@@ -130,7 +135,7 @@
         \item \textbf{在迭代过程中收敛速度与输入信号强弱关系？}
         信号强，收敛速度慢；信号弱，收敛速度快。(注：此处指步长固定时，输入功率大则特征值跨度大，可能影响稳定性或需要更小的步长，导致收敛受限)
     \end{enumerate}
-\end{problem}
+\end{longproblem}
 
 % --- 六、LMS算法流程与失调 ---
 \begin{problem}[写出LMS（最小均方误差）算法，失调系数作用及计算公式？]

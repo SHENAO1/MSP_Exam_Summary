@@ -1,6 +1,6 @@
 % msp-exam.cls
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{msp-exam}[2026/01/06 v1.6 Modern Signal Processing Exam Summary Class]
+\ProvidesClass{msp-exam}[2026/01/06 v1.8 Modern Signal Processing Exam Summary Class]
 
 % --- 1. 基类 ---
 \LoadClass[a4paper,12pt,oneside]{ctexbook}
@@ -14,19 +14,19 @@
 \RequirePackage{float}
 \RequirePackage{hyperref}
 \RequirePackage{xcolor}
-\RequirePackage{enumitem} % 列表定制
+\RequirePackage{enumitem} 
 \RequirePackage{fancyhdr}
 \RequirePackage[most]{tcolorbox}
 \RequirePackage{ulem} 
 \RequirePackage{calc} 
-\RequirePackage{varwidth} % 【新增】用于支持标题自动换行
+\RequirePackage{varwidth} 
 
 % --- 3. 颜色定义 ---
 \definecolor{mainblue}{RGB}{0, 80, 160}
 \definecolor{accentteal}{RGB}{0, 128, 128}
-\definecolor{paperbg}{RGB}{253, 252, 245} % 羊皮纸色背景
-\definecolor{derivbg}{RGB}{255, 250, 240} % 推导框背景
-\definecolor{derivframe}{RGB}{210, 180, 140} % 推导框边框
+\definecolor{paperbg}{RGB}{253, 252, 245} 
+\definecolor{derivbg}{RGB}{255, 250, 240} 
+\definecolor{derivframe}{RGB}{210, 180, 140} 
 
 % --- 4. 链接设置 ---
 \hypersetup{
@@ -36,16 +36,36 @@
     urlcolor=cyan,
 }
 
-% --- 5. 题目环境 (Problem) ---
+% --- 5. 标准题目环境 (Problem) - 默认不跨页 ---
 \newcounter{probcount}[section]
 \renewcommand{\theprobcount}{\thesection.\arabic{probcount}}
 
 \newtcolorbox{problem}[1][]{
     enhanced,
-    unbreakable, 
+    unbreakable, % <--- 【保持默认不跨页】，保护选择填空题
     colback=gray!5,
     colframe=gray!60!black,
-    % 【修改点】：使用 varwidth 包裹标题，限制最大宽度为 0.9\linewidth，实现自动换行
+    title={%
+        \begin{varwidth}{0.9\linewidth}
+            \refstepcounter{probcount}\textbf{问题 \theprobcount} \quad #1
+        \end{varwidth}%
+    },
+    fonttitle=\bfseries\large,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={colback=mainblue, sharp corners},
+    top=4mm,
+    bottom=2mm,
+    before skip=10pt,
+    after skip=10pt
+}
+
+% --- 5.1 新增：长题目环境 (Long Problem) - 允许跨页 ---
+% 使用方法：\begin{longproblem}[题目] ... \end{longproblem}
+\newtcolorbox{longproblem}[1][]{
+    enhanced,
+    breakable,   % <--- 【允许跨页】，专用于长推导
+    colback=gray!5,
+    colframe=gray!60!black,
     title={%
         \begin{varwidth}{0.9\linewidth}
             \refstepcounter{probcount}\textbf{问题 \theprobcount} \quad #1
@@ -69,11 +89,10 @@
     \par\vspace{2mm}\leftskip=0em
 }
 
-% --- 7. 新增：推导专用盒子 (Derivation) ---
-% 用于Q5中的LMS推导过程，模仿Markdown引用块样式
+% --- 7. 推导专用盒子 (Derivation) ---
 \newtcolorbox{derivation}[1][推导过程]{
     enhanced,
-    breakable,
+    breakable, % 推导本身允许跨页（配合 longproblem 使用）
     colback=derivbg,
     colframe=derivframe,
     coltitle=black!80,
@@ -82,11 +101,11 @@
     attach boxed title to top left={yshift*=-\tcboxedtitleheight/2, xshift=5mm},
     boxed title style={colback=derivbg, boxrule=0.5pt, colframe=derivframe},
     left=4mm, right=4mm, top=4mm, bottom=2mm,
-    borderline west={3pt}{0pt}{derivframe}, % 左侧加粗线
+    borderline west={3pt}{0pt}{derivframe}, 
     sharp corners
 }
 
-% --- 8. 智能填空逻辑 (保持不变) ---
+% --- 8. 智能填空逻辑 ---
 \newif\ifshowanswers
 \showanswersfalse 
 
