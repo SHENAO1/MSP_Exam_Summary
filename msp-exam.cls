@@ -1,6 +1,6 @@
 % msp-exam.cls
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{msp-exam}[2026/01/06 v1.5 Modern Signal Processing Exam Summary Class]
+\ProvidesClass{msp-exam}[2026/01/06 v1.6 Modern Signal Processing Exam Summary Class]
 
 % --- 1. 基类 ---
 \LoadClass[a4paper,12pt,oneside]{ctexbook}
@@ -19,6 +19,7 @@
 \RequirePackage[most]{tcolorbox}
 \RequirePackage{ulem} 
 \RequirePackage{calc} 
+\RequirePackage{varwidth} % 【新增】用于支持标题自动换行
 
 % --- 3. 颜色定义 ---
 \definecolor{mainblue}{RGB}{0, 80, 160}
@@ -44,7 +45,12 @@
     unbreakable, 
     colback=gray!5,
     colframe=gray!60!black,
-    title={\refstepcounter{probcount}\textbf{问题 \theprobcount} \quad #1},
+    % 【修改点】：使用 varwidth 包裹标题，限制最大宽度为 0.9\linewidth，实现自动换行
+    title={%
+        \begin{varwidth}{0.9\linewidth}
+            \refstepcounter{probcount}\textbf{问题 \theprobcount} \quad #1
+        \end{varwidth}%
+    },
     fonttitle=\bfseries\large,
     attach boxed title to top left={yshift=-2mm, xshift=2mm},
     boxed title style={colback=mainblue, sharp corners},
