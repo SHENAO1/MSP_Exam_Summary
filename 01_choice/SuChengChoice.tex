@@ -330,7 +330,7 @@
             \item \textbf{(A) 错误}：LMS 算法是随机梯度下降，权值向量在最优解附近随机起伏（布朗运动），因此均方误差（MSE）不会“恒定”在最小值，而是存在过剩均方误差（Excess MSE）。
             \item \textbf{(B) 错误}：由于使用瞬时平方误差 $\hat{\xi}(n)=e^2(n)$ 代替均方误差 $E[e^2(n)]$ 作为梯度的估计，梯度估计含有噪声，导致权值更新轨迹是曲折的，并不是单调下降的。
             \item \textbf{(C) 错误}：LMS 算法的收敛时间常数 $\tau \approx \frac{1}{4\mu \lambda}$（其中 $\lambda$ 为输入相关矩阵的特征值，代表信号功率）。在步长 $\mu$ 固定的稳定范围内，信号越强（$\lambda$ 越大），时间常数越小，收敛反而\textbf{越快}。
-            \item \textbf{(D) 正确}：稳态失调量（Misadjustment） $M \approx \frac{\mu}{2} \text{tr}(\mathbf{R})$ $\left \{  M = \underbrace{\mu}_{\text{步长}} \underbrace{N}_{\text{阶数}}  \underbrace{P}_{\text{输入功率}}  \right \}$。失调量直接正比于步长 $\mu$。步长越大，收敛越快，但稳态误差（失调量）也越大。
+            \item \textbf{(D) 正确}：稳态失调量 $M \approx \frac{\mu}{2} \text{tr}(\mathbf{R})$ $\left \{  M = \underbrace{\mu}_{\text{步长}} \underbrace{N}_{\text{阶数}}  \underbrace{P}_{\text{输入功率}}  \right \}$。失调量直接正比于步长 $\mu$。步长越大，收敛越快，但稳态误差（失调量）也越大。
         \end{itemize}
     \end{solution}
 \end{problem}

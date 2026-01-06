@@ -1,0 +1,166 @@
+% 03_short_answer/SuChengShortAnswer.tex
+% 基于 MSP问答题.md 1:1 转换 (已修复 aligned 报错)
+
+\section{简答题与分析}
+
+% --- 一、周期谱估计 ---
+\begin{problem}[周期谱估计方法有什么缺点？现代谱估计和经典谱估计方法有什么根本区别？]
+    \begin{solution}
+        \textbf{缺点：}周期图估计谱分辨率低，且估计的方差也比较大。
+        
+        \textbf{区别：}
+        \begin{itemize}
+            \item 经典谱估计将数据观测区以外的未知数据假设为0，使功率谱估计模糊，分辨率降低。
+            \item 现代谱估计对数据观测区以外的数据不假设为0，而先根据信号观测数据估计模型参数，按照求模型输出功率的方法估计功率谱，回避了数据观测区以外的数据假设问题，所以分辨率高。
+        \end{itemize}
+    \end{solution}
+\end{problem}
+
+% --- 二、参数法谱估计思路 ---
+\begin{problem}[在现代谱估计中，参数法谱估计的基本思路是什么？]
+    \begin{solution}
+        \begin{enumerate}
+            \item 根据功率谱的先验知识，选择相应的模型。
+            \item 根据观测数据得到模型参数。
+            \item 利用 $ P_{yy}(e^{j\omega}) = P_{xx}(e^{j\omega}) |H(e^{j\omega})|^2 $ 估计功率谱。
+        \end{enumerate}
+    \end{solution}
+\end{problem}
+
+% --- 三、滤波器比较 ---
+\begin{problem}[简述IIR与FIR、维纳滤波器、自适应滤波器，三种滤波器的异同？]
+    \begin{solution}
+        \textbf{IIR与FIR}都是经典滤波器，特点是输入信号有用的频率和希望被滤除的频率成分各占不同的频率，通过合适的选频滤波器滤波。
+        
+        \textbf{维纳滤波器和自适应滤波器}是现代滤波器，特点是可以按照随机信号内部的统计分布律，从干扰中最佳的提取信号。
+        \begin{itemize}
+            \item 维纳滤波器参数固定，要求输入平稳随机信号且具有先验知识；
+            \item 自适应滤波器参数不固定，可根据某种准则调到最佳参数，不需要先验知识。
+        \end{itemize}
+    \end{solution}
+\end{problem}
+
+% --- 四、正交性与维纳原理 ---
+\begin{problem}[简述正交性原理和维纳滤波器原理]
+    \begin{solution}
+        \textbf{正交性原理是：}输入信号与误差信号正交。
+        
+        \textbf{维纳滤波器的原理是：}假设输入的随机信号平稳，且已知其二阶统计特性，根据最小均方误差准则求得滤波器参数。
+    \end{solution}
+\end{problem}
+
+% --- 五、自适应滤波器LMS算法 (包含推导) ---
+\begin{problem}[自适应滤波器采用LMS算法]
+    \begin{enumerate}
+        \item \textbf{权系数的更新公式：}
+        \[ W_{j+1} = W_{j} + 2\mu e_{j}X_{j} \]
+        
+        \begin{derivation}[推导过程]
+            \textbf{第一步：定义代价函数}\\
+            在自适应滤波中，我们的目标是让输出 $y(n)$ 尽可能接近期望信号 $d(n)$。定义 $n$ 时刻的瞬时误差为：
+            \[ e(n) = d(n) - y(n) = d(n) - w^T(n)x(n) \]
+            LMS 算法的目标是最小化均方误差 (MSE)。但在实时迭代中，我们无法直接获得全局期望，因此用瞬时平方误差作为估计值。定义代价函数 $J(n)$ 为：
+            \[ J(n) = e^2(n) \]
+            
+            \textbf{第二步：梯度下降}\\
+            为了找到 $J(n)$ 的最小值，我们需要沿着函数下降最快的方向（即梯度的反方向）来调整 $w$。权重的更新逻辑可以表示为：
+            \[ w(n+1) = w(n) + \Delta w \]
+            其中，更新量 $\Delta w$ 与负梯度成正比：
+            \[ \Delta w = - \mu \nabla J(n) \]
+            这里的 $\mu$ 是步长因子，$\nabla J(n)$ 是代价函数对权向量 $w$ 的导数。
+            
+            \textbf{第三步：计算梯度}\\
+            根据链式法则：
+            \[ \nabla J(n) = \frac{\partial e^2(n)}{\partial w} = 2e(n) \frac{\partial e(n)}{\partial w} \]
+            代入 $e(n) = d(n) - w^T(n)x(n)$ 对 $w$ 求偏导：
+            \[ \frac{\partial e(n)}{\partial w} = \frac{\partial [d(n) - w^T(n)x(n)]}{\partial w} \]
+            由于 $d(n)$ 与 $w$ 无关，其导数为 0；而 $w^T x$ 对 $w$ 求导的结果就是 $x(n)$：
+            \[ \frac{\partial e(n)}{\partial w} = -x(n) \]
+            将结果合在一起，得到瞬时梯度：
+            \[ \nabla J(n) = 2e(n) \cdot [-x(n)] = -2e(n)x(n) \]
+            
+            \textbf{第四步：最终公式}\\
+            将计算出的梯度代入第二步的更新逻辑中：
+            % 【修正点】：增加了外层的 \[ ... \] 
+            \[
+            \begin{aligned}  
+            w(n+1) &= w(n) - \mu \nabla J(n) \\
+                   &= w(n) - \mu [-2e(n)x(n)] \\
+                   &= w(n) + 2\mu e(n)x(n)
+            \end{aligned}
+            \]
+            
+            \textbf{推导逻辑总结：}
+            \begin{enumerate}
+                \item \textbf{想变小谁？} 误差的平方 $e^2(n)$
+                \item \textbf{怎么变小？} 沿着它的梯度反方向走
+                \item \textbf{梯度是多少？} 通过求导发现梯度就是 $-2e(n)x(n)$
+                \item \textbf{结论：} 往负梯度的反方向走一步，就得到了加号连接的更新公式
+            \end{enumerate}
+        \end{derivation}
+        
+        \item \textbf{写出步长因子的取值范围：}
+        \[ 0 < \mu < \frac{1}{\lambda_{max}} \]
+        其中 $\lambda_{max}$ 是输入信号自相关矩阵的最大特征值。
+        
+        \item \textbf{收敛速度和步长因子的关系：}
+        步长因子 $\mu$ 越小，收敛速度越慢；步长因子 $\mu$ 越大，收敛速度越快。
+        
+        \item \textbf{达到稳态后，均方误差是否恒定保持不变：}
+        不会。权重矢量 $\omega$ 的变化过程是随机的，即使收敛到最佳，均方误差最小，但权重矢量 $\omega$ 还是会根据递推公式随机变化。
+        
+        \item \textbf{都有哪些因素影响失调系数？}
+        \[ M = \underbrace{\mu}_{\text{步长}} \underbrace{N}_{\text{阶数}} \underbrace{P}_{\text{输入功率}} \]
+        
+        \item \textbf{LMS算法与最陡下降法有何异同？}
+        相同点是LMS算法和最陡下降法都采用负梯度算法更新滤波系数。不同是LMS选择一次样本误差的梯度，最陡下降法选择均方误差的梯度。
+        
+        \item \textbf{什么叫LMS算法的学习曲线？}
+        是采用LMS算法，刻画性能函数随迭代次数变化的曲线。
+        
+        \item \textbf{数值计算题：}
+        假设观测数据的自相关函数 $r_{xx}(0)=2$，滤波器选择 25 个权系数 ($N=25$)，则步长因子 $\mu$ 的取值范围？
+        
+        \textbf{解：} $0 < \mu < \frac{1}{N \cdot E[e_j^2]}$，在自适应滤波中，$E[e_j^2]$ 通常为输入信号的功率（均方值），即 $r_{xx}(0)$。则计算可得：
+        \[ 0 < \mu < \frac{1}{25 \times 2} \implies 0 < \mu < 0.02 \]
+        
+        \item \textbf{为什么说自适应滤波的输入信号 $x(n)$ 与期望信号 $d(n)$ 之间应该具有相关性？}
+        维纳滤波器的最佳权重公式为 $W^* = R_{xx}^{-1} R_{xd}$；即最佳权矢量等于输入信号自相关矩阵的逆，乘以输入与期望信号的互相关矢量。如果输入信号 $x(n)$ 与期望信号 $d(n)$ 不相关，则有 $R_{xd}=0$，那么有 $W^*=0$，即滤波后信号消失。
+        
+        \item \textbf{在迭代过程中收敛速度与输入信号强弱关系？}
+        信号强，收敛速度慢；信号弱，收敛速度快。(注：此处指步长固定时，输入功率大则特征值跨度大，可能影响稳定性或需要更小的步长，导致收敛受限)
+    \end{enumerate}
+\end{problem}
+
+% --- 六、LMS算法流程与失调 ---
+\begin{problem}[写出LMS（最小均方误差）算法，失调系数作用及计算公式？]
+    \begin{solution}
+        定义 $\mathbf{X}_j$ 为输入信号向量，$\mathbf{W}_j$ 为第 $j$ 次迭代的权系数向量（滤波器系数），$y_j$ 为滤波器的输出。$d_j$ 为期望响应（目标信号），$e_j$ 为误差信号，$\mu$ 为步长因子。
+        
+        \textbf{算法步骤：}
+        \begin{enumerate}
+            \item 估计滤波器阶数 $N$，步长因子 $\mu$，权系数初始值 $\mathbf{W}_{0}$
+            \item 计算滤波器输出 $y_j = \mathbf{W}_j^T \mathbf{X}_j$
+            \item 计算估计误差 $e_j = d_j - y_j$
+            \item 权系数更新 $\mathbf{W}_{j+1} = \mathbf{W}_j + 2\mu e_j \mathbf{X}_j$
+        \end{enumerate}
+        重复2、3、4步。
+        
+        \textbf{失调系数：}
+        稳态失调量 $M \approx \frac{\mu}{2} \text{tr}(\mathbf{R})$。
+        公式记忆：$M = \mu \cdot N \cdot P$ (步长 $\times$ 阶数 $\times$ 输入功率)。
+        
+        \textbf{作用/含义：} 失调量直接正比于步长 $\mu$。步长越大，收敛越快，但稳态误差（失调量）也越大。
+    \end{solution}
+\end{problem}
+
+% --- 七、RLS与LMS比较 ---
+\begin{problem}[RLS和LMS之间的比较？]
+    \begin{solution}
+        \begin{enumerate}
+            \item RLS的收敛速率比LMS快一个数量级。
+            \item RLS随着迭代次数趋于无限，其失调量趋于0。
+            \item RLS比LMS有更好的性能，但计算复杂度也明显增加。
+        \end{enumerate}
+    \end{solution}
+\end{problem}
