@@ -1,6 +1,6 @@
 % SuChengChoice.tex
-% 子文件：选择题部分
-% 请确保主文件已加载 msp-exam 文档类 (或包含 ctex, amsmath, enumitem 等宏包)
+% 选择题部分
+% 配合 msp-exam.cls v2.0 使用，会自动生成“题干页 -> 解析页”的双页模式
 
 \section{基础概念选择题}
 
@@ -16,7 +16,7 @@
     
     \begin{solution}
         \textbf{正确答案：(A)}
-       
+        
         \textbf{分析：} 实随机信号的功率谱密度 $S_x(w)$ 必须满足以下三个性质：
         \begin{enumerate}
             \item \textbf{实值性}：功率谱必须是实函数。选项 (B) 分母含有虚数单位 $j$，故排除。
@@ -29,7 +29,7 @@
         \end{enumerate}
         检查选项 (A)：
         $$ S(w) = \frac{w^2}{w^6 + 3w^2 + 3} $$
-        分子 $w^2$ 是偶函数且非负；分母 $w^6 + 3w^2 + 3$ 是偶函数且恒大于0（各项均为非负项且常数项为3）。因此整个式子是实值、非负且偶对称的。
+        分子 $w^2$ 是偶函数且非负；分母 $w^6 + 3w^2 + 3$ 是偶函数且恒大于0。因此整个式子是实值、非负且偶对称的。
     \end{solution}
 \end{problem}
 
@@ -71,9 +71,9 @@
         
         \textbf{分析：} 
         \begin{itemize}
-            \item \textbf{(A) 正确}：FIR 滤波器只要满足系数对称或反对称（$h[n] = \pm h[N-1-n]$），即可具有严格的线性相位特性。这是 FIR 相比 IIR 最大的优势。
-            \item \textbf{(B) 正确}：FIR（有限长单位冲激响应）通常采用非递归结构（如横截型结构），系统函数只有零点，没有极点（极点在原点），保证了绝对稳定性。
-            \item \textbf{(C) 正确}：为了达到与 IIR 相同的幅频特性（如下降陡度），FIR 通常需要比 IIR 高得多的阶数（Tap数），因为 IIR 利用反馈引入了极点，能更高效地逼近理想特性。
+            \item \textbf{(A) 正确}：FIR 滤波器只要满足系数对称或反对称，即可具有严格的线性相位特性。
+            \item \textbf{(B) 正确}：FIR 通常采用非递归结构，系统函数只有零点，保证了绝对稳定性。
+            \item \textbf{(C) 正确}：为了达到与 IIR 相同的幅频特性，FIR 通常需要比 IIR 高得多的阶数。
         \end{itemize}
     \end{solution}
 \end{problem}
@@ -93,9 +93,9 @@
         
         \textbf{分析：} 
         \begin{itemize}
-            \item \textbf{(A)(B) 正确}：相关性与功率谱（或频谱）是一对傅里叶变换关系。时域变化越缓慢（相关性越强），频域分量越集中于低频（功率谱越窄）；反之，变化越剧烈（不相关/白噪声），功率谱越宽。
-            \item \textbf{(C) 正确}：根据不确定性原理（时宽频宽积为常数），时域的扩展对应频域的压缩，时域的宽分布对应频域的窄分布。
-            \item \textbf{(D) 正确}：根据傅里叶变换的尺度变换性质（Scaling Property），$x(at) \leftrightarrow \frac{1}{|a|}X(\frac{w}{a})$。若 $a=N$（压缩），则频域变量变为 $w/N$，即频域宽度扩展 $N$ 倍。
+            \item \textbf{(A)(B) 正确}：相关性与功率谱是一对傅里叶变换关系。时域变化缓慢（相关性强）对应频域窄；变化剧烈（不相关）对应频域宽。
+            \item \textbf{(C) 正确}：根据不确定性原理（时宽频宽积为常数）。
+            \item \textbf{(D) 正确}：根据傅里叶变换的尺度变换性质。
         \end{itemize}
     \end{solution}
 \end{problem}
@@ -114,11 +114,10 @@
         \textbf{正确答案：(C)}
         
         \textbf{分析：} 
-        周期图法（Periodogram）是功率谱密度的渐近无偏估计，但它是非一致（inconsistent）估计。
+        周期图法是功率谱密度的非一致估计。
         \begin{itemize}
             \item 随着数据长度 $N \to \infty$，其方差并不趋于 0。
-            \item 事实上，周期图谱估计的方差与真实功率谱值的平方成正比，即 $\text{Var}[\hat{P}(w)] \approx P^2(w)$。
-            \item 无论 $N$ 多大，方差都保持较大水平，因此需要采用平均周期图法（Bartlett法）或平滑周期图法（Welch法）来减小方差。
+            \item $\text{Var}[\hat{P}(w)] \approx P^2(w)$，无论 $N$ 多大，方差都保持较大水平。
         \end{itemize}
     \end{solution}
 \end{problem}
@@ -137,10 +136,7 @@
         \textbf{正确答案：(D)}
         
         \textbf{分析：} 
-        \begin{itemize}
-            \item 选项 (A)、(B)、(C) 主要影响滤波器的收敛速度、计算复杂度以及数值稳定性。例如，RLS 算法比 LMS 算法收敛快，IIR 结构比 FIR 结构更节省阶数。
-            \item 选项 (D) 决定了滤波器的最终效果（最小均方误差的下限）。自适应滤波的本质是从输入信号中提取出与参考信号相关的部分。如果输入信号与参考信号完全不相关，无论用什么结构或算法，滤波器都无法有效工作。维纳解（Wiener Solution）表明最优权值取决于互相关向量 $\mathbf{p}$ 和自相关矩阵 $\mathbf{R}$。
-        \end{itemize}
+        自适应滤波的本质是从输入信号中提取出与参考信号相关的部分。如果输入信号与参考信号完全不相关，无论用什么结构或算法，滤波器都无法有效工作。
     \end{solution}
 \end{problem}
 
@@ -159,9 +155,8 @@
         
         \textbf{分析：} 
         \begin{itemize}
-            \item \textbf{因果稳定性}：系统因果且稳定，要求其系统函数 $H(z)$ 的所有极点必须位于 $z$ 平面单位圆的\textbf{内部}。
-            \item \textbf{可逆性（最小相位）}：题目中的“可逆系统”通常指逆系统也是因果稳定的（即最小相位系统）。逆系统的系统函数为 $H^{-1}(z) = 1/H(z)$，其极点即为原系统 $H(z)$ 的零点。为了保证逆系统也是因果稳定的，原系统的零点也必须位于单位圆的\textbf{内部}。
-            \item 综上所述，该系统的零点和极点都必须全部在单位圆内部。
+            \item \textbf{因果稳定性}：极点必须位于单位圆\textbf{内部}。
+            \item \textbf{可逆性（最小相位）}：逆系统也是因果稳定的，要求原系统的零点也必须位于单位圆的\textbf{内部}。
         \end{itemize}
     \end{solution}
 \end{problem}
@@ -181,10 +176,10 @@
         
         \textbf{分析：} 
         \begin{itemize}
-            \item \textbf{(A) 错误}：输入输出互相关函数 $R_{xy}(m) = R_{xx}(m) * h(m)$。只有当输入是白噪声（$R_{xx}(m)=\delta(m)$）时，互相关函数才等于系统的单位脉冲响应 $h(m)$。
-            \item \textbf{(B) 正确}：对于线性时不变系统，输出功率谱密度 $S_{yy}(w)$ 与输入功率谱密度 $S_{xx}(w)$ 的关系为 $S_{yy}(w) = S_{xx}(w) |H(w)|^2$。其中 $|H(w)|^2$ 常被称为系统的能量谱（或功率传输函数）。
-            \item \textbf{(C) 正确}：输入输出互功率谱 $S_{xy}(w)$ 与输入自功率谱的关系为 $S_{xy}(w) = S_{xx}(w) H(w)$（注意：此处假设互相关定义为 $R_{xy}(\tau) = E[x(t)y(t+\tau)]$，若定义不同可能涉及共轭）。
-            \item \textbf{(D) 错误}：时域中，输入输出互相关序列是输入自相关序列与系统单位脉冲响应的\textbf{卷积}，而不是乘积。
+            \item (A) 仅当输入为白噪声时成立。
+            \item (B) $S_{yy}(w) = S_{xx}(w) |H(w)|^2$，正确。
+            \item (C) $S_{xy}(w) = S_{xx}(w) H(w)$，正确。
+            \item (D) 时域中应为\textbf{卷积}，而非乘积。
         \end{itemize}
     \end{solution}
 \end{problem}
@@ -204,15 +199,15 @@
         
         \textbf{分析：} 
         \begin{itemize}
-            \item \textbf{(A) 正确}：传统的非参数谱估计（如周期图法）分辨率受限于数据长度（瑞利限），但现代参数谱估计算法（如 AR 模型、MUSIC、ESPRIT 等）可以突破这一限制，显著提高分辨率。
-            \item \textbf{(B) 正确}：物理分辨率主要取决于信号的观测时长 $T$（或采样点数 $N$），分辨率 $\Delta f \approx 1/T$。增加数据长度是提高物理分辨率最直接的方法。
-            \item \textbf{(C) 正确}：加窗会使谱峰变宽（主瓣加宽），导致分辨率下降。不同窗函数的主瓣宽度不同，因此分辨率与窗函数有关（如矩形窗主瓣最窄，分辨率最高；黑曼窗主瓣宽，分辨率低）。
-            \item \textbf{(D) 错误}：补零（Zero-padding）只是对频谱进行插值，增加了频谱采样的密度（栅栏效应减小），使谱线看起来更平滑，但并不能区分两个原本无法分辨的紧邻频率分量，即不能提高物理分辨率。
+            \item (A) 现代谱估计（如 MUSIC）可以突破瑞利限。
+            \item (B) 物理分辨率 $\Delta f \approx 1/T$，增加时长 $T$ 可提高分辨率。
+            \item (C) 窗函数主瓣越宽，分辨率越低。
+            \item (D) 补零只能减小栅栏效应，不能提高物理分辨率。
         \end{itemize}
     \end{solution}
 \end{problem}
 
-% --- 第 10 题 (对应第一张图片：滤波器与算法综合) ---
+% --- 第 10 题 ---
 \begin{problem}[滤波器结构与算法特性]
     下面说法正确的是（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
@@ -224,18 +219,10 @@
 
     \begin{solution}
         \textbf{正确答案：(ABCD)}
-        
-        \textbf{分析：} 
-        \begin{itemize}
-            \item \textbf{(A) 正确}：IIR 滤波器的直接型结构对系数量化误差非常敏感，极点位置容易发生较大偏移甚至导致系统不稳定。级联结构（将系统分解为二阶节的级联）能显著降低这种灵敏度，减少有限字长效应的影响。
-            \item \textbf{(B) 正确}：线性相位 FIR 滤波器满足 $h(n) = \pm h(N-1-n)$。利用这种对称性，可以将通过加法器预先合并对称的输入样本，然后再与系数相乘，从而将所需的乘法器数量减少约一半（$N/2$ 或 $(N+1)/2$）。
-            \item \textbf{(C) 正确}：白噪声的自相关函数是冲激函数 $\delta(m)$，表示仅在 $m=0$ 时相关，其他时刻完全不相关（相关性最差）。而谐波信号（如正弦波）是确定性信号，其自相关函数也是周期的，具有很强的长时相关性。
-            \item \textbf{(D) 正确}：RLS（递归最小二乘）算法利用了所有过去的数据信息，收敛速度极快且稳态误差（失调量）小，但涉及矩阵运算，计算复杂度为 $O(N^2)$；相比之下 LMS 算法计算简单 $O(N)$ 但收敛慢。
-        \end{itemize}
     \end{solution}
 \end{problem}
 
-% --- 第 11 题 (对应第二张图片：离散系统的性质) ---
+% --- 第 11 题 ---
 \begin{problem}[离散系统的性质]
     关于离散系统，下面叙述正确的是：（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
@@ -250,30 +237,22 @@
         
         \textbf{分析：} 
         \begin{itemize}
-            \item \textbf{(A) 错误}：线性系统必须满足叠加原理（均匀性和叠加性）。该方程中含有常数项 $+1$，若输入为 0，输出不为 0，显然是非线性的（不满足零输入零输出特性）。
-            \item \textbf{(B) 错误}：该系统是抽取系统。
-            \begin{itemize}
-                \item 原系统输入 $x(n)$ 输出 $y(n) = x(2n)$。
-                \item 延迟后的输入 $x'(n) = x(n-k)$，其输出为 $y'(n) = x'(2n) = x(2n-k)$。
-                \item 延迟后的输出 $y(n-k) = x(2(n-k)) = x(2n-2k)$。
-                \item 显然 $y'(n) \neq y(n-k)$，故为时变系统。
-            \end{itemize}
-            \item \textbf{(C) 错误}：因果系统的输出仅取决于当前和过去的输入。该式中 $y(n)$ 依赖于 $x(n+1)$（未来的输入），因此是非因果系统。
-            \item \textbf{(D) 正确}：这是 FIR 滤波器具有线性相位的充分条件。当 $h(n)$ 满足偶对称中心为 $(N-1)/2$ 时，其频响相位为 $\theta(w) = -w(N-1)/2$，即严格线性相位。
+            \item (A) 存在常数项 $+1$，不满足零输入零输出。
+            \item (B) 抽取系统是时变系统。
+            \item (C) 依赖未来输入 $x(n+1)$，非因果。
+            \item (D) 满足对称性的 FIR 具有线性相位。
         \end{itemize}
     \end{solution}
 \end{problem}
 
-
-
-% --- 第 12 题 (对应MATLAB函数图片) ---
+% --- 第 12 题 ---
 \begin{problem}[MATLAB信号处理函数的使用]
     关于 MATLAB 函数的使用，下面叙述正确的是：（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item 计算系统的频率特性可以使用函数 \texttt{freqz(b, a)}，其中 $b$ 是系统函数 $H(z)$ 分母多项式的系数，$a$ 是系统函数分子多项式的系数
         \item 计算信号的频谱可以使用函数 \texttt{y=fft(x)}，如果 $x$ 是 $N$ 点的信号，则 $y$ 是 $x$ 频谱在 $0 \sim 2\pi$ 的 $N$ 等分
         \item 产生正态分布的白噪声使用函数 \texttt{rand}
-        \item 设计 FIR 滤波器可以使用函数 \texttt{h = fir1(N, w)}，表示使用默认的窗函数设计一个 $N$ 阶，截止频率为 $w$ 的数字低通滤波器，其中 $w$ 是对 $\pi$ 归一化的数字频率，$h$ 是滤波器的单位脉冲响应，有 $N+1$ 个系数
+        \item 设计 FIR 滤波器可以使用函数 \texttt{h = fir1(N, w)}，表示使用默认的窗函数设计一个 $N$ 阶，截止频率为 $w$ 的数字低通滤波器
     \end{enumerate}
 
     \begin{solution}
@@ -281,15 +260,13 @@
         
         \textbf{分析：} 
         \begin{itemize}
-            \item \textbf{(A) 错误}：在 MATLAB 的 \texttt{freqz(b, a)} 函数中，按照惯例，$b$ 对应\textbf{分子}多项式系数（Numerator），$a$ 对应\textbf{分母}多项式系数（Denominator）。题目描述将二者颠倒了。
-            \item \textbf{(B) 正确}：\texttt{fft} 计算离散傅里叶变换（DFT）。$N$ 点 DFT 的结果确实对应频域 $[0, 2\pi)$ 区间上的 $N$ 个均匀采样点。
-            \item \textbf{(C) 错误}：\texttt{rand} 函数产生的是\textbf{均匀分布}（Uniform）的随机数；产生正态分布（高斯分布）应使用 \texttt{randn} 函数。
-            \item \textbf{(D) 正确}：\texttt{fir1} 用于设计窗函数法 FIR 滤波器。参数 $N$ 为滤波器阶数，输出的冲激响应 $h$ 长度为 $N+1$。默认情况下使用汉明窗（Hamming）且设计低通滤波器。
+            \item (A) 颠倒了，$b$ 是分子，$a$ 是分母。
+            \item (C) \texttt{rand} 是均匀分布，正态分布应为 \texttt{randn}。
         \end{itemize}
     \end{solution}
 \end{problem}
 
-% --- 第 13 题 (对应FIR/IIR对比图片) ---
+% --- 第 13 题 ---
 \begin{problem}[FIR与IIR滤波器的对比]
     FIR 滤波器与 IIR 滤波器相比较，下列说法中正确的是：（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
@@ -303,16 +280,11 @@
         \textbf{正确答案：(ACD)}
         
         \textbf{分析：} 
-        \begin{itemize}
-            \item \textbf{(A) 正确}：因果稳定的 IIR 滤波器由于存在极点（且极点不在原点），其相位特性是非线性的。要实现 IIR 的线性相位通常需要非因果处理（如双向滤波）。
-            \item \textbf{(B) 错误}：FIR 滤波器只有在单位脉冲响应满足对称性（$h(n) = \pm h(N-1-n)$）时才具有线性相位，并非“一定”是线性相位的。
-            \item \textbf{(C) 正确}：这是 FIR 最大的优点之一，可以通过设计系数对称来严格保证线性相位，避免相位失真。
-            \item \textbf{(D) 正确}：IIR 利用了反馈（极点），能用较少的阶数获得陡峭的过渡带。FIR 仅利用零点，为了达到同样的幅频特性指标（如通带波纹、阻带衰减、过渡带宽度），通常需要比 IIR 高得多的阶数（通常高 5-10 倍）。
-        \end{itemize}
+        (B) 只有满足对称条件的 FIR 才是线性相位的。
     \end{solution}
 \end{problem}
 
-% --- 第 12 题 (对应LMS算法图片) ---
+% --- 第 14 题 ---
 \begin{problem}[LMS算法的特性]
     自适应滤波器采用 LMS 算法迭代，正确的说法是（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
@@ -327,10 +299,10 @@
         
         \textbf{分析：} 
         \begin{itemize}
-            \item \textbf{(A) 错误}：LMS 算法是随机梯度下降，权值向量在最优解附近随机起伏（布朗运动），因此均方误差（MSE）不会“恒定”在最小值，而是存在过剩均方误差（Excess MSE）。
-            \item \textbf{(B) 错误}：由于使用瞬时平方误差 $\hat{\xi}(n)=e^2(n)$ 代替均方误差 $E[e^2(n)]$ 作为梯度的估计，梯度估计含有噪声，导致权值更新轨迹是曲折的，并不是单调下降的。
-            \item \textbf{(C) 错误}：LMS 算法的收敛时间常数 $\tau \approx \frac{1}{4\mu \lambda}$（其中 $\lambda$ 为输入相关矩阵的特征值，代表信号功率）。在步长 $\mu$ 固定的稳定范围内，信号越强（$\lambda$ 越大），时间常数越小，收敛反而\textbf{越快}。
-            \item \textbf{(D) 正确}：稳态失调量 $M \approx \frac{\mu}{2} \text{tr}(\mathbf{R})$ $\left \{  M = \underbrace{\mu}_{\text{步长}} \underbrace{N}_{\text{阶数}}  \underbrace{P}_{\text{输入功率}}  \right \}$。失调量直接正比于步长 $\mu$。步长越大，收敛越快，但稳态误差（失调量）也越大。
+            \item (A) 存在过剩均方误差，会在最小值附近波动。
+            \item (B) 梯度估计含噪声，轨迹是曲折的。
+            \item (C) 信号越强，收敛越快。
+            \item (D) 失调量正比于步长 $\mu$。
         \end{itemize}
     \end{solution}
 \end{problem}

@@ -90,7 +90,7 @@
             \textbf{第四步：最终公式}\\
             将计算出的梯度代入第二步的更新逻辑中：
             \[
-            \begin{aligned}  
+            \begin{aligned} 
             w(n+1) &= w(n) - \mu \nabla J(n) \\
                    &= w(n) - \mu [-2e(n)x(n)] \\
                    &= w(n) + 2\mu e(n)x(n)
@@ -216,9 +216,9 @@
 % --- 十二、自相关估计 ---
 \begin{problem}[什么是无偏、有偏自相关估计]
     \begin{solution}
-        \textbf{无偏自相关估计：} $ \hat{r}_{xx}(m)=\frac{1}{N-\mid m\mid}\sum_{n=0}^{N-\mid m\mid-1}x(n)x(n+m) $，只有当 $ N \gg m, N \rightarrow \infty $ 时，估计量的方差才趋于 0，当 $ m \rightarrow N $ 时，方差将很大。不是一种好的估计。
+        \textbf{无偏自相关估计：} $ \hat{r}_{xx}(m) = \frac{1}{N-m} \sum_{n=0}^{N-m-1} x(n)x(n+m) $，只有当 $ N \gg m, N \rightarrow \infty $ 时，估计量的方差才趋于 0，当 $ m \rightarrow N $ 时，方差将很大。不是一种好的估计。
         
-        \textbf{有偏自相关估计：} $ \hat{r}_{xx}(m)=\frac{1}{N}\sum_{n=0}^{N-|m|-1}x^{*}(n)x(n+m) $，对于固定的延时 $ m $，当观测数据 $ N \rightarrow \infty $ 时， $ B \rightarrow 0 $，因此是渐近无偏估计。对于固定的数据个数 $ N $，只有当延时 $ m \ll N $ 时，才接近真值，当 $ m $ 越接近 $ N $，估计的偏差越大。
+        \textbf{有偏自相关估计：} $ \hat{r}'_{xx}(m) = \frac{1}{N} \sum_{n=0}^{N-m-1} x(n)x(n+m) $，对于固定的延时 $ m $，当观测数据 $ N \rightarrow \infty $ 时， $ B \rightarrow 0 $，因此是渐近无偏估计。对于固定的数据个数 $ N $，只有当延时 $ m \ll N $ 时，才接近真值，当 $ m $ 越接近 $ N $，估计的偏差越大。
     \end{solution}
 \end{problem}
 

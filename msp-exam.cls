@@ -1,6 +1,6 @@
 % msp-exam.cls
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{msp-exam}[2026/01/06 v1.8 Modern Signal Processing Exam Summary Class]
+\ProvidesClass{msp-exam}[2026/01/06 v2.1 Fixed Restore LongProblem]
 
 % --- 1. 基类 ---
 \LoadClass[a4paper,12pt,oneside]{ctexbook}
@@ -20,6 +20,7 @@
 \RequirePackage{ulem} 
 \RequirePackage{calc} 
 \RequirePackage{varwidth} 
+\RequirePackage{environ} % 用于捕获环境内容
 
 % --- 3. 颜色定义 ---
 \definecolor{mainblue}{RGB}{0, 80, 160}
@@ -36,13 +37,18 @@
     urlcolor=cyan,
 }
 
-% --- 5. 标准题目环境 (Problem) - 默认不跨页 ---
+% --- 5. 题目计数器 ---
 \newcounter{probcount}[section]
 \renewcommand{\theprobcount}{\thesection.\arabic{probcount}}
 
+% =========================================================
+%  A. 恢复标准题目环境 (用于解答题、填空题)
+% =========================================================
+
+% 1. 标准题目 (不跨页) - 恢复原版
 \newtcolorbox{problem}[1][]{
     enhanced,
-    unbreakable, % <--- 【保持默认不跨页】，保护选择填空题
+    unbreakable, 
     colback=gray!5,
     colframe=gray!60!black,
     title={%
@@ -59,11 +65,10 @@
     after skip=10pt
 }
 
-% --- 5.1 新增：长题目环境 (Long Problem) - 允许跨页 ---
-% 使用方法：\begin{longproblem}[题目] ... \end{longproblem}
+% 2. 长题目 (允许跨页) - 【已恢复，您截图报错就是因为缺这个】
 \newtcolorbox{longproblem}[1][]{
     enhanced,
-    breakable,   % <--- 【允许跨页】，专用于长推导
+    breakable,   % <--- 允许跨页
     colback=gray!5,
     colframe=gray!60!black,
     title={%
@@ -80,19 +85,71 @@
     after skip=10pt
 }
 
-% --- 6. 解析环境 (Solution) ---
-\newenvironment{solution}{
-    \par\vspace{1mm}\noindent\textbf{\color{accentteal}【答】}\par
-    \color{black!90}
-    \leftskip=1em
-}{
-    \par\vspace{2mm}\leftskip=0em
+% =========================================================
+%  B. 新增：选择题专用环境 (自动双页显示)
+% =========================================================
+
+% 定义一个内部盒子用于 Choice 逻辑 (用户不直接使用这个)
+\newtcolorbox{innerchoicebox}[1][]{
+    enhanced,
+    unbreakable, 
+    colback=gray!5,
+    colframe=gray!60!black,
+    title={%
+        \begin{varwidth}{0.9\linewidth}
+            \refstepcounter{probcount}\textbf{问题 \theprobcount} \quad #1
+        \end{varwidth}%
+    },
+    fonttitle=\bfseries\large,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={colback=mainblue, sharp corners},
+    top=4mm,
+    bottom=2mm,
+    before skip=10pt,
+    after skip=10pt
 }
 
-% --- 7. 推导专用盒子 (Derivation) ---
+% 定义 choiceproblem 环境：先打印题干，换页，再打印题干+解析
+\NewEnviron{choiceproblem}[1][]{
+    % --- 第1遍：仅题干 (Student View) ---
+    \showanswersfalse
+    \begin{innerchoicebox}[#1]
+        \BODY
+    \end{innerchoicebox}
+    \clearpage
+    
+    % --- 第2遍：题干 + 解析 (Teacher View) ---
+    \addtocounter{probcount}{-1} % 回退计数器，保持题号一致
+    \showanswerstrue
+    \begin{innerchoicebox}[#1]
+        \BODY
+    \end{innerchoicebox}
+    \clearpage
+}
+
+% =========================================================
+%  C. 其他组件 (解析、推导、填空)
+% =========================================================
+
+% 智能开关逻辑
+\newif\ifshowanswers
+\showanswersfalse 
+
+% 解析环境 (Solution) - 根据 ifshowanswers 自动显隐
+\NewEnviron{solution}{
+    \ifshowanswers
+        \par\vspace{1mm}\noindent\textbf{\color{accentteal}【答】}\par
+        \color{black!90}
+        \leftskip=1em
+        \BODY
+        \par\vspace{2mm}\leftskip=0em
+    \fi
+}
+
+% 推导专用盒子 (Derivation)
 \newtcolorbox{derivation}[1][推导过程]{
     enhanced,
-    breakable, % 推导本身允许跨页（配合 longproblem 使用）
+    breakable, 
     colback=derivbg,
     colframe=derivframe,
     coltitle=black!80,
@@ -105,10 +162,7 @@
     sharp corners
 }
 
-% --- 8. 智能填空逻辑 ---
-\newif\ifshowanswers
-\showanswersfalse 
-
+% 智能填空逻辑
 \newlength{\blankwidth} 
 \newlength{\blankdepth} 
 
@@ -133,7 +187,7 @@
     \fi
 }
 
-% --- 9. 列表与版式优化 ---
+% 列表与版式优化
 \setlist[enumerate]{label=\arabic*., itemsep=2pt, topsep=2pt}
 \ctexset{
     chapter/format = \Huge\bfseries\centering,
