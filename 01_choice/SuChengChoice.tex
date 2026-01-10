@@ -1,11 +1,11 @@
 % SuChengChoice.tex
 % 选择题部分
-% 配合 msp-exam.cls v2.0 使用，会自动生成“题干页 -> 解析页”的双页模式
+% 配合 msp-exam.cls v2.1 使用，会自动生成“题干页 -> 解析页”的双页模式
 
 \section{基础概念选择题}
 
 % --- 第 1 题 ---
-\begin{problem}[功率谱密度的性质]
+\begin{choiceproblem}[功率谱密度的性质]
     下列哪些函数是实随机信号的功率谱密度的正确表达式（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=1em]
         \item $\displaystyle \frac{w^2}{w^6 + 3w^2 + 3}$
@@ -31,10 +31,10 @@
         $$ S(w) = \frac{w^2}{w^6 + 3w^2 + 3} $$
         分子 $w^2$ 是偶函数且非负；分母 $w^6 + 3w^2 + 3$ 是偶函数且恒大于0。因此整个式子是实值、非负且偶对称的。
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 2 题 ---
-\begin{problem}[白噪声的定义]
+\begin{choiceproblem}[白噪声的定义]
     下面属于白噪声的信号是（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item 带宽大于系统的带宽，并且在系统的带宽内该信号的频谱近似均匀分布
@@ -54,10 +54,10 @@
             \item (D) 描述的是高斯噪声（幅度分布特性），高斯噪声不一定是白噪声（频谱特性），反之亦然。
         \end{itemize}
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 3 题 ---
-\begin{problem}[FIR与IIR滤波器对比]
+\begin{choiceproblem}[FIR与IIR滤波器对比]
     FIR 滤波器与 IIR 滤波器相比较，下列说法中正确的是（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item FIR 相位可以做到严格线性
@@ -76,10 +76,10 @@
             \item \textbf{(C) 正确}：为了达到与 IIR 相同的幅频特性，FIR 通常需要比 IIR 高得多的阶数。
         \end{itemize}
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 4 题 ---
-\begin{problem}[时域与频域的关系]
+\begin{choiceproblem}[时域与频域的关系]
     下述对时域与频域之间关系描述正确的是（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item 信号的相关性越强，它的功率谱就越窄
@@ -98,10 +98,10 @@
             \item \textbf{(D) 正确}：根据傅里叶变换的尺度变换性质。
         \end{itemize}
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 5 题 ---
-\begin{problem}[周期图法谱估计的性质]
+\begin{choiceproblem}[周期图法谱估计的性质]
     周期图法谱估计的方差：（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item 大，但随着数据长度增大而减小
@@ -120,10 +120,10 @@
             \item $\text{Var}[\hat{P}(w)] \approx P^2(w)$，无论 $N$ 多大，方差都保持较大水平。
         \end{itemize}
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 6 题 ---
-\begin{problem}[自适应滤波器的性能]
+\begin{choiceproblem}[自适应滤波器的性能]
     自适应滤波器的性能最终取决于（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item 采用横向结构还是采用格型结构
@@ -138,10 +138,10 @@
         \textbf{分析：} 
         自适应滤波的本质是从输入信号中提取出与参考信号相关的部分。如果输入信号与参考信号完全不相关，无论用什么结构或算法，滤波器都无法有效工作。
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 7 题 ---
-\begin{problem}[因果稳定系统与零极点]
+\begin{choiceproblem}[因果稳定系统与零极点]
     一个因果稳定的可逆系统，其系统函数 $H(z)$ 的零、极点分布情况：（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item 零点在 $z$ 平面的单位圆的内部，极点在 $z$ 平面的单位圆的外部
@@ -159,10 +159,10 @@
             \item \textbf{可逆性（最小相位）}：逆系统也是因果稳定的，要求原系统的零点也必须位于单位圆的\textbf{内部}。
         \end{itemize}
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 8 题 ---
-\begin{problem}[随机信号通过线性系统]
+\begin{choiceproblem}[随机信号通过线性系统]
     对于随机信号通过线性系统，下面正确的概念是（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item 输入输出互相关序列就是系统的单位脉冲响应序列
@@ -182,10 +182,10 @@
             \item (D) 时域中应为\textbf{卷积}，而非乘积。
         \end{itemize}
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 9 题 ---
-\begin{problem}[信号的频域分辨率]
+\begin{choiceproblem}[信号的频域分辨率]
     对于信号的频域分辨率，下面正确的概念是（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item 采用新的信号处理算法可以提高信号的频域分辨率
@@ -205,10 +205,10 @@
             \item (D) 补零只能减小栅栏效应，不能提高物理分辨率。
         \end{itemize}
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 10 题 ---
-\begin{problem}[滤波器结构与算法特性]
+\begin{choiceproblem}[滤波器结构与算法特性]
     下面说法正确的是（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item IIR 滤波器级联结构比直接型结构对系数变换的敏感度小，受有限字长的影响低
@@ -220,10 +220,10 @@
     \begin{solution}
         \textbf{正确答案：(ABCD)}
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 11 题 ---
-\begin{problem}[离散系统的性质]
+\begin{choiceproblem}[离散系统的性质]
     关于离散系统，下面叙述正确的是：（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item 系统 $y(n) = 2x(n) + 1$ 是线性系统
@@ -243,10 +243,10 @@
             \item (D) 满足对称性的 FIR 具有线性相位。
         \end{itemize}
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 12 题 ---
-\begin{problem}[MATLAB信号处理函数的使用]
+\begin{choiceproblem}[MATLAB信号处理函数的使用]
     关于 MATLAB 函数的使用，下面叙述正确的是：（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item 计算系统的频率特性可以使用函数 \texttt{freqz(b, a)}，其中 $b$ 是系统函数 $H(z)$ 分母多项式的系数，$a$ 是系统函数分子多项式的系数
@@ -264,10 +264,10 @@
             \item (C) \texttt{rand} 是均匀分布，正态分布应为 \texttt{randn}。
         \end{itemize}
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 13 题 ---
-\begin{problem}[FIR与IIR滤波器的对比]
+\begin{choiceproblem}[FIR与IIR滤波器的对比]
     FIR 滤波器与 IIR 滤波器相比较，下列说法中正确的是：（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item IIR 滤波器无法得到严格的线性相位
@@ -282,10 +282,10 @@
         \textbf{分析：} 
         (B) 只有满足对称条件的 FIR 才是线性相位的。
     \end{solution}
-\end{problem}
+\end{choiceproblem}
 
 % --- 第 14 题 ---
-\begin{problem}[LMS算法的特性]
+\begin{choiceproblem}[LMS算法的特性]
     自适应滤波器采用 LMS 算法迭代，正确的说法是（ \quad ）
     \begin{enumerate}[label=(\Alph*), itemsep=0.5em]
         \item 达到稳态后，均方误差恒定在最小值
@@ -305,4 +305,4 @@
             \item (D) 失调量正比于步长 $\mu$。
         \end{itemize}
     \end{solution}
-\end{problem}
+\end{choiceproblem}
